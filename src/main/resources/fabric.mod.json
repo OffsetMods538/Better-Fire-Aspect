@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "better-fire-aspect",
+	"version": "${version}",
+	"name": "Better Fire Aspect",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"OffsetMonkey538"
+	],
+	"contact": {
+		"sources": "https://github.offsetmonkey538.top/Better-Fireaspect"
+	},
+	"license": "MIT",
+	"icon": "assets/better-fire-aspect/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"top.offsetmonkey538.betterfireaspect.BetterFireAspect"
+		],
+		"client": [
+			"top.offsetmonkey538.betterfireaspect.BetterFireAspectClient"
+		]
+	},
+	"mixins": [
+		"better-fire-aspect.mixins.json",
+		{
+			"config": "better-fire-aspect.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabric-api": "*"
+	}
+}
