@@ -3,7 +3,8 @@
   "package": "top.offsetmonkey538.betterfireaspect.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "EnchantmentMixin"
+    "EnchantmentMixin",
+    "BlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
