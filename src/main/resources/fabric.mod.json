@@ -3,7 +3,7 @@
 	"id": "better-fire-aspect",
 	"version": "${version}",
 	"name": "Better Fire Aspect",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Makes fire aspect work on tools!",
 	"authors": [
 		"OffsetMonkey538"
 	],
