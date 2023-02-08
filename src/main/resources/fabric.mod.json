@@ -30,8 +30,5 @@
 			"config": "better-fire-aspect.client.mixins.json",
 			"environment": "client"
 		}
-	],
-	"depends": {
-		"fabric-api": "*"
-	}
+	]
 }
