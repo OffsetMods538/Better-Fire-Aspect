@@ -43,7 +43,7 @@ public abstract class BlockMixin {
             Optional<SmeltingRecipe> recipe = betterfireaspect$CACHED_MATCH_GETTER.getFirstMatch(new SimpleInventory(currentStack), world);
             if (recipe.isEmpty()) continue;
 
-            ItemStack smeltedCurrentStack = recipe.get().getOutput();
+            ItemStack smeltedCurrentStack = recipe.get().getOutput(world.getRegistryManager());
             smeltedCurrentStack.setCount(currentStack.getCount());
 
             itemStacks.set(i, smeltedCurrentStack);
