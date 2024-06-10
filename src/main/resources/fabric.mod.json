@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "better-fire-aspect",
-	"version": "${version}",
+	"version": "${modVersion}",
 	"name": "Better Fire Aspect",
 	"description": "Makes fire aspect work on tools!",
 	"authors": [
@@ -32,6 +32,6 @@
 		}
 	],
 	"depends": {
-		"minecraft": "~1.20"
+		"minecraft": "${supportedMinecraftVersions}"
 	}
 }

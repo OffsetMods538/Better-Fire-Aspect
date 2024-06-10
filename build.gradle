@@ -9,9 +9,8 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
-archivesBaseName = project.archives_base_name
+archivesBaseName = "better-fire-aspect"
 version = project.mod_version
-group = project.maven_group
 
 outlet {
 	maintainPropertiesFile = System.getenv("DISABLE_PROPERTIES_UPDATE") == null
@@ -23,10 +22,6 @@ outlet {
 	]
 }
 
-repositories {
-	mavenCentral()
-}
-
 loom {
 	splitEnvironmentSourceSets()
 
@@ -36,7 +31,17 @@ loom {
 			sourceSet sourceSets.client
 		}
 	}
+}
 
+// https://gist.github.com/maityyy/3dbcd558d58a6412c3a2a38c72706e8e
+afterEvaluate {
+	loom.runs.configureEach {
+		vmArg "-javaagent:${configurations.compileClasspath.find{ it.name.contains("sponge-mixin") }}"
+	}
+}
+
+repositories {
+	mavenCentral()
 }
 
 dependencies {
@@ -47,10 +52,16 @@ dependencies {
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.properties(Map.of(
+			"modVersion",                 project.mod_version,
+			"supportedMinecraftVersions", project.supported_minecraft_versions
+	))
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand(Map.of(
+				"modVersion",                 project.mod_version,
+				"supportedMinecraftVersions", project.supported_minecraft_versions
+		))
 	}
 }
 
@@ -59,9 +70,6 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 }
 
