@@ -12,13 +12,7 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	maven {
-		name = "JitPack"
-		url = "https://jitpack.io"
-		content {
-			includeGroup "com.github.LlamaLad7"
-		}
-	}
+	mavenCentral()
 }
 
 loom {
@@ -38,10 +32,6 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	// MixinExtras
-	include implementation("com.github.LlamaLad7:MixinExtras:${mixinextras_version}")
-	annotationProcessor "com.github.LlamaLad7:MixinExtras:${mixinextras_version}"
 }
 
 processResources {
