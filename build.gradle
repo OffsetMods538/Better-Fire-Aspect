@@ -18,7 +18,8 @@ outlet {
 	allowedReleaseTypes = Set.of(ReleaseType.RELEASE)
 	propertiesData = [
 			'yarn_version': outlet.yarnVersion(project.minecraft_version),
-			'loader_version': outlet.loaderVersion()
+			'loader_version': outlet.loaderVersion(),
+			'fapi_version': outlet.fapiVersion(project.minecraft_version)
 	]
 }
 
@@ -42,6 +43,14 @@ afterEvaluate {
 
 repositories {
 	mavenCentral()
+	mavenLocal()
+	maven {
+		name = "OffsetMods538"
+		url = "https://maven.offsetmonkey538.top/releases"
+		content {
+			includeGroup "top.offsetmonkey538.monkeylib538"
+		}
+	}
 }
 
 dependencies {
@@ -49,18 +58,24 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_version}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	modImplementation fabricApi.module("fabric-resource-loader-v0", project.fapi_version)
+
+	modImplementation "top.offsetmonkey538.monkeylib538:monkeylib538:${project.monkeylib538_version}"
 }
 
 processResources {
 	inputs.properties(Map.of(
 			"modVersion",                 project.mod_version,
-			"supportedMinecraftVersions", project.supported_minecraft_versions
+			"supportedMinecraftVersions", project.supported_minecraft_versions,
+			"monkeylib538_version",       project.monkeylib538_version
 	))
 
 	filesMatching("fabric.mod.json") {
 		expand(Map.of(
 				"modVersion",                 project.mod_version,
-				"supportedMinecraftVersions", project.supported_minecraft_versions
+				"supportedMinecraftVersions", project.supported_minecraft_versions,
+				"monkeylib538_version",       project.monkeylib538_version
 		))
 	}
 }
@@ -97,7 +112,8 @@ modrinth {
 	}
 
 	dependencies {
-		// TODO: if monkeylib is required: required.project "monkeylib538"
+		required.project "monkeylib538"
+		required.project "fabric-api"
 	}
 }
 

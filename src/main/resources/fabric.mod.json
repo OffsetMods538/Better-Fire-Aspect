@@ -32,6 +32,8 @@
 		}
 	],
 	"depends": {
-		"minecraft": "${supportedMinecraftVersions}"
+		"minecraft": "${supportedMinecraftVersions}",
+		"monkeylib538": ">=${monkeylib538_version}",
+		"fabric-resource-loader-v0": "*"
 	}
 }

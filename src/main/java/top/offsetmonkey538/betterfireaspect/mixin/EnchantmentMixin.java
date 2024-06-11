@@ -1,8 +1,8 @@
 package top.offsetmonkey538.betterfireaspect.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.FireAspectEnchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,6 +17,11 @@ public abstract class EnchantmentMixin {
     )
     @SuppressWarnings({"ConstantConditions", "unused"})
     public boolean betterfireaspect$makeToolsAcceptableItemsForFireAspect(boolean original, ItemStack item) {
-        return original || ((Object)this instanceof FireAspectEnchantment && item.getItem() instanceof ToolItem);
+        try {
+            Class<?> fireAspectEnchantment = this.getClass().getClassLoader().loadClass(FabricLoader.getInstance().getMappingResolver().mapClassName("intermediary", "net.minecraft.class_1892"));
+            return original || (fireAspectEnchantment.isInstance(this) && item.getItem() instanceof ToolItem);
+        } catch (ClassNotFoundException e) {
+            return original;
+        }
     }
 }
